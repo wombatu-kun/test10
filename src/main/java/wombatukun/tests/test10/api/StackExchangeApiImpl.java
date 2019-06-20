@@ -52,4 +52,5 @@ public class StackExchangeApiImpl implements StackExchangeApi {
 	}
 
 	public void setUrl(String url) { this.url = url; }
+
 }

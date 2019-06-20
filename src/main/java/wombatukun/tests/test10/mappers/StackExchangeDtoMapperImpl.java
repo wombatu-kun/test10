@@ -4,7 +4,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
-import wombatukun.tests.test10.api.dto.*;
+import wombatukun.tests.test10.api.dto.ApiQuestionDto;
+import wombatukun.tests.test10.api.dto.ApiRequestDto;
+import wombatukun.tests.test10.api.dto.ApiResponseDto;
+import wombatukun.tests.test10.api.dto.OwnerDto;
 import wombatukun.tests.test10.dto.AuthorDto;
 import wombatukun.tests.test10.dto.QuestionDto;
 import wombatukun.tests.test10.dto.ResponseDto;
@@ -41,7 +44,7 @@ public class StackExchangeDtoMapperImpl implements StackExchangeDtoMapper {
 	public ResponseDto mapResponse(ApiResponseDto apiResponse) {
 		ResponseDto response = new ResponseDto();
 		if (apiResponse.getErrorId() != null) {
-			response.setErrorMessage(apiResponse.getErrorId() + " " + apiResponse.getErrorName() + ": " + apiResponse.getErrorMessage());
+			response.setErrorMessage(apiResponse.errorDescription());
 		} else {
 			response.setHasMore(apiResponse.isHasMore());
 			response.setPage(apiResponse.getPage());

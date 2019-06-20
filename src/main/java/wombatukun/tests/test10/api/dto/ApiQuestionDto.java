@@ -25,6 +25,17 @@ public class ApiQuestionDto {
 
 	private String link;
 
+	public ApiQuestionDto() {
+	}
+
+	public ApiQuestionDto(Long questionId, String title, Long creationDate, String link, boolean isAnswered, OwnerDto owner) {
+		this.creationDate = creationDate;
+		this.questionId = questionId;
+		this.title = title;
+		this.owner = owner;
+		this.isAnswered = isAnswered;
+		this.link = link;
+	}
 
 	public String getTitle() { return title; }
 

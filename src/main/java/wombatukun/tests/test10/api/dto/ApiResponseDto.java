@@ -48,6 +48,29 @@ public class ApiResponseDto {
 	@JsonProperty("error_name")
 	private String errorName;
 
+	public ApiResponseDto() {
+	}
+
+	public ApiResponseDto(List<ApiQuestionDto> items, boolean hasMore, Integer page, Integer pageSize, Long total,
+	                      Integer errorId, String errorName, String errorMessage, Integer quotaMax, Integer quotaRemaining,
+	                      Integer backoff) {
+		this.items = items;
+		this.hasMore = hasMore;
+		this.total = total;
+		this.page = page;
+		this.pageSize = pageSize;
+		this.quotaMax = quotaMax;
+		this.quotaRemaining = quotaRemaining;
+		this.backoff = backoff;
+		this.errorId = errorId;
+		this.errorMessage = errorMessage;
+		this.errorName = errorName;
+	}
+
+	public String errorDescription() {
+		return errorId + " " + errorName + ": " + errorMessage;
+	}
+
 	public List<ApiQuestionDto> getItems() { return items; }
 
 	public void setItems(List<ApiQuestionDto> items) { this.items = items; }
