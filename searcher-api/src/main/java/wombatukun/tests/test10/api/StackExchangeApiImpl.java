@@ -50,6 +50,8 @@ public class StackExchangeApiImpl implements StackExchangeApi {
 		log.warn("Fallback: {}", throwable.toString());
 		ApiResponseDto  failure = new ApiResponseDto();
 		failure.setItems(new ArrayList<>());
+		failure.setPage(request.getPage());
+		failure.setPageSize(request.getPageSize());
 		failure.setErrorId(DEFAULT_ERROR_ID);
 		failure.setErrorName(throwable.getClass().getName());
 		failure.setErrorMessage(Strings.nullToEmpty(throwable.getMessage()));
@@ -63,7 +65,5 @@ public class StackExchangeApiImpl implements StackExchangeApi {
 			throw new RuntimeException(e.getMessage());
 		}
 	}
-
-//	public void setUrl(String url) { this.url = url; }
 
 }
