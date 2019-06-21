@@ -1,0 +1,83 @@
+<html>
+  <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Stack Exchange Search</title>
+    <style>
+      .req.ng-valid {
+          background-color: lightgreen;
+      }
+      .req.ng-dirty.ng-invalid-required {
+          background-color: red;
+      }
+      .req.ng-dirty.ng-invalid-maxlength {
+          background-color: yellow;
+      }
+    </style>
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
+     <link href="./css/app.css" rel="stylesheet"/>
+  </head>
+  <body ng-app="searcher" class="ng-cloak">
+      <div class="generic-container" ng-controller="SearcherController as ctrl">
+          <div class="panel panel-default">
+              <div class="panel-heading"><span class="lead">Search questions on Stack Exchange</span></div>
+              <div class="formcontainer">
+                  <form ng-submit="ctrl.submit()" name="searchForm" class="form-horizontal">
+                      <input type="hidden" ng-model="ctrl.req.page" />
+                      <input type="hidden" ng-model="ctrl.req.pageSize" />
+                      <div class="row">
+                          <div class="form-group col-md-12">
+                              <label class="col-md-2 control-lable" for="val">Phrase to search in titles</label>
+                              <div class="col-md-7">
+                                  <div class="input-group">
+                                    <input type="text" ng-model="ctrl.req.value" required="required" ng-maxlength="50" ng-minlength="2" id="val" name="val" class="req form-control input-sm" placeholder="kotlin"/>
+                                      <span class="input-group-btn">
+                                      <input type="submit"  value="GO GO GO!" class="btn btn-primary btn-sm" ng-disabled="searchForm.$invalid"/>
+                                      <input type="button"  ng-click="ctrl.prevPage()" value="prev page" class="btn btn-primary btn-sm" ng-hide="ctrl.resp.page==null || ctrl.resp.page<2"/>
+                                      <input type="button"  ng-click="ctrl.nextPage()" value="next page" class="btn btn-primary btn-sm" ng-hide="ctrl.resp.page==null || ctrl.resp.hasMore===false"/>
+                                      </span>
+                                  </div>
+                                  <div class="has-error" ng-show="searchForm.$dirty">
+                                      <span ng-show="searchForm.val.$error.required">Value is required</span>
+                                      <span ng-show="searchForm.val.$error.maxlength">Phrase must be 2-50 characters long</span>
+                                      <span ng-show="searchForm.val.$error.minlength">Phrase must be 2-50 characters long</span>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </form>
+              </div>
+          </div>
+          <div class="panel panel-default" ng-show="ctrl.resp.errorMessage != null">
+              <div class="panel-heading"><span class="lead">ERRROR: {{ctrl.resp.errorMessage}}</span></div>
+          </div>
+          <div class="panel panel-default" ng-show="ctrl.resp.errorMessage == null && ctrl.resp.total != null">
+              <div class="panel-heading"><span class="lead">Search results: {{ctrl.resp.total}} (page={{ctrl.resp.page}}, pageSize={{ctrl.resp.pageSize}}})</span></div>
+              <div class="tablecontainer">
+                  <table class="table table-hover">
+                      <thead>
+                          <tr>
+                              <th>Created</th>
+                              <th>Author</th>
+                              <th>Question</th>
+                              <th>ID</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr ng-repeat="q in ctrl.resp.items">
+                              <td><span ng-bind="q.creationDate" ng-style="{ 'font-weight' : (q.isAnswered) ? 'bold' : 'normal' }"></span></td>
+                              <td><span ng-bind="q.author.name"></span></td>
+                              <td><span ng-bind="q.title"></span></td>
+                              <td><a ng-href="{{q.link}}" target="_blank">{{q.id}}</a></td>
+                          </tr>
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+      </div>
+      
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.js"></script>
+      <script src="./js/app.js"></script>
+      <script src="./js/service/searcher_service.js"></script>
+      <script src="./js/controller/searcher_controller.js"></script>
+  </body>
+</html>
