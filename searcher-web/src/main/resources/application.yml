@@ -21,3 +21,10 @@ logging:
     wombatukun.tests.test10.api: DEBUG
     com.netflix.config.sources.URLConfigurationSource: ERROR
 
+management:
+  endpoints:
+    web:
+      base-path: /management
+      exposure:
+        include: '*'
+        exclude: threaddump, heapdump
