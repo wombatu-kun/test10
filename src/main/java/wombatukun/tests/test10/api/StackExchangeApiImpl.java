@@ -2,8 +2,7 @@ package wombatukun.tests.test10.api;
 
 import com.google.common.base.Strings;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Service;
@@ -13,10 +12,10 @@ import wombatukun.tests.test10.api.dto.ApiResponseDto;
 
 import java.util.ArrayList;
 
+@Slf4j
 @Service
 @ConfigurationProperties(prefix = "stackexchange.api")
 public class StackExchangeApiImpl implements StackExchangeApi {
-	private static final Logger LOGGER = LoggerFactory.getLogger(StackExchangeApiImpl.class);
 
 	public static final int DEFAULT_ERROR_ID = -23;
 
@@ -35,14 +34,14 @@ public class StackExchangeApiImpl implements StackExchangeApi {
 	) /* fallback, threadPool and circuitBreaker configured in application properties */
 	public ApiResponseDto searchQuestionsByTitle(ApiRequestDto request) {
 		String apiUrl = url  + request.toSearchQuery();
-		LOGGER.debug("Request query: {}", apiUrl);
+		log.debug("Request query: {}", apiUrl);
 		ApiResponseDto response = restTemplate.getForObject(apiUrl, ApiResponseDto.class);
-		LOGGER.debug("Response object: {}", response);
+		log.debug("Response object: {}", response);
 		return response;
 	}
 
 	private ApiResponseDto buildFailureResponse(ApiRequestDto request, Throwable throwable) {
-		LOGGER.warn("Fallback: {}", throwable.toString());
+		log.warn("Fallback: {}", throwable.toString());
 		ApiResponseDto  failure = new ApiResponseDto();
 		failure.setItems(new ArrayList<>());
 		failure.setErrorId(DEFAULT_ERROR_ID);

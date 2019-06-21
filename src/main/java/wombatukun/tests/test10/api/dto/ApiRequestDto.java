@@ -1,7 +1,8 @@
 package wombatukun.tests.test10.api.dto;
 
-import com.google.common.base.Objects;
+import lombok.Data;
 
+@Data
 public class ApiRequestDto {
 
 	/**
@@ -67,54 +68,4 @@ public class ApiRequestDto {
 		return sb.toString();
 	}
 
-	public String getIntitle() { return intitle; }
-
-	public void setIntitle(String intitle) { this.intitle = intitle; }
-
-	public Integer getPage() { return page;	}
-
-	public void setPage(Integer page) { this.page = page; }
-
-	public Integer getPageSize() { return pageSize; }
-
-	public void setPageSize(Integer pageSize) {	this.pageSize = pageSize; }
-
-	public String getOrder() { return order; }
-
-	public void setOrder(String order) { this.order = order; }
-
-	public String getSort() { return sort; }
-
-	public void setSort(String sort) { this.sort = sort; }
-
-	public String getSite() { return site; }
-
-	public void setSite(String site) { this.site = site; }
-
-	public String getFilter() {	return filter; }
-
-	public void setFilter(String filter) { this.filter = filter; }
-
-	public String getKey() { return key; }
-
-	public void setKey(String key) { this.key = key; }
-
-	public String getAccessToken() { return accessToken; }
-
-	public void setAccessToken(String accessToken) { this.accessToken = accessToken; }
-
-	@Override
-	public String toString() {
-		return Objects.toStringHelper(this)
-				.add("intitle", intitle)
-				.add("page", page)
-				.add("pageSize", pageSize)
-				.add("order", order)
-				.add("sort", sort)
-				.add("site", site)
-				.add("filter", filter)
-				.add("key", key)
-				.add("accessToken", accessToken)
-				.toString();
-	}
 }

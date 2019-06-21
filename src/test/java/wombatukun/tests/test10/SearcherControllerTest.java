@@ -47,24 +47,9 @@ public class SearcherControllerTest {
 	}
 
 	@Test
-	public void emptyResult_returnOk() throws Exception {
-		given(searcherService.searchQuestionsByTitle("hahaha", PAGE, PAGE_SIZE)).willReturn(createEmptyResponse());
-
-		mvc.perform(post("/search").contentType(MediaType.APPLICATION_JSON)
-				.content("{\"value\":\"hahaha\", \"page\":" + PAGE + ", \"pageSize\":" + PAGE_SIZE + "}"))
-				.andExpect(status().isOk()).andExpect(jsonPath("$.searchString", Matchers.is("hahaha")))
-				.andExpect(jsonPath("$.total", Matchers.is(0)))
-				.andExpect(jsonPath("$.page", Matchers.is(1)))
-				.andExpect(jsonPath("$.pageSize", Matchers.is(PAGE_SIZE)))
-				.andExpect(jsonPath("$.items", Matchers.notNullValue()))
-				.andExpect(jsonPath("$.hasMore", Matchers.is(false)))
-				.andExpect(jsonPath("$.errorMessage", Matchers.nullValue()));
-	}
-
-	@Test
 	public void notReadableException_returnBadRequest() throws Exception {
 		mvc.perform(post("/search")
-				.contentType(MediaType.APPLICATION_JSON).content("{\"value\":\"haha\", \"page\":\"y\", \"pageSize\":103}"))
+				.contentType(MediaType.APPLICATION_JSON).content("{\"value\":\"haha\", \"page\":\"y\", \"pageSize\":10}"))
 				.andExpect(status().isBadRequest()).andExpect(jsonPath("$.errorMessage", Matchers.notNullValue()));
 	}
 
@@ -96,11 +81,7 @@ public class SearcherControllerTest {
 			QuestionDto item = new QuestionDto(i, "title"+i, new Date(), "link"+i, i%2 == 0, author);
 			items.add(item);
 		}
-		return new ResponseDto(items, false, PAGE, PAGE_SIZE, TOTAL,null);
-	}
-
-	private ResponseDto createEmptyResponse() {
-		return new ResponseDto(new ArrayList<>(), false, 1, PAGE_SIZE, 0L,null);
+		return new ResponseDto(items, false, PAGE, PAGE_SIZE, TOTAL,null, null);
 	}
 
 }

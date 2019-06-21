@@ -1,7 +1,6 @@
 package wombatukun.tests.test10.mappers;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 import wombatukun.tests.test10.api.dto.ApiQuestionDto;
@@ -16,10 +15,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@Slf4j
 @Component
 @ConfigurationProperties(prefix = "stackexchange.request")
 public class StackExchangeDtoMapperImpl implements StackExchangeDtoMapper {
-	private static final Logger LOGGER = LoggerFactory.getLogger(StackExchangeDtoMapperImpl.class);
 
 	private String order;
 	private String sort;

@@ -1,7 +1,6 @@
 package wombatukun.tests.test10.services;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -11,9 +10,9 @@ import wombatukun.tests.test10.api.dto.ApiResponseDto;
 import wombatukun.tests.test10.dto.ResponseDto;
 import wombatukun.tests.test10.mappers.StackExchangeDtoMapper;
 
+@Slf4j
 @Service
 public class SearcherServiceImpl implements SearcherService {
-	private static final Logger LOGGER = LoggerFactory.getLogger(SearcherServiceImpl.class);
 
 	private StackExchangeApi stackExchangeApi;
 	private StackExchangeDtoMapper stackExchangeDtoMapper;

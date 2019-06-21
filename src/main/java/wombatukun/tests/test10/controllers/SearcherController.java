@@ -1,6 +1,7 @@
 package wombatukun.tests.test10.controllers;
 
 import com.google.common.base.Joiner;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @RestController
 public class SearcherController {
 
@@ -43,13 +45,13 @@ public class SearcherController {
 				.collect(Collectors.toList());
 		String errorMessage = Joiner.on("; ").join(errors);
 
-		return new ResponseDto(new ArrayList<>(), false, null, null, null, errorMessage);
+		return new ResponseDto(new ArrayList<>(), false, null, null, null, errorMessage, null);
 	}
 
 	@ExceptionHandler
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	public ResponseDto handleException(HttpMessageNotReadableException exception) {
-		return new ResponseDto(new ArrayList<>(), false, null, null, null, exception.getMessage());
+		return new ResponseDto(new ArrayList<>(), false, null, null, null, exception.getMessage(), null);
 	}
 
 }
