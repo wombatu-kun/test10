@@ -3,4 +3,11 @@ pluginManagement {
 		gradlePluginPortal()
 	}
 }
+
+include 'searcher-api', 'searcher-web'
+
 rootProject.name = 'stack-exchange-searcher'
+
+rootProject.children.each {
+	it.buildFileName = it.name + '.gradle' - 'searcher-'
+}

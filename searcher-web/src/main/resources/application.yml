@@ -1,0 +1,23 @@
+server:
+  port: 9090
+
+spring:
+  application:
+    name: "stack-exchange-searcher"
+
+stackexchange:
+  request:
+    order: desc
+    sort: activity
+    site: stackoverflow
+    filter: "!.Fjs-H6VybJDO2vVwuF_LVT82Icu6"
+    key: "NPfsSxYYJquIDVOlb2z*lw(("
+    accessToken: "ppUOASObhfE(*GyBRjQAeg))"
+
+logging:
+  file: searcher.log
+  level:
+    root: WARN
+    wombatukun.tests.test10.api: DEBUG
+    com.netflix.config.sources.URLConfigurationSource: ERROR
+
