@@ -1,0 +1,76 @@
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Stack Exchange Search</title>
+    <style>
+      .req.ng-valid {
+          background-color: lightgreen;
+      }
+      .req.ng-dirty.ng-invalid-required {
+          background-color: red;
+      }
+      .req.ng-dirty.ng-invalid-maxlength {
+          background-color: yellow;
+      }
+    </style>
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
+     <link href="./css/app.css" th:href="@{/css/app.css}" rel="stylesheet"/>
+  </head>
+  <body class="ng-cloak">
+      <div class="generic-container">
+          <div class="panel panel-default">
+              <div class="panel-heading"><span class="lead">Search questions on Stack Exchange</span></div>
+              <div class="formcontainer">
+                  <form th:action="@{/thymeleaf}" th:object="${searchForm}" method="POST" name="searchForm" class="form-horizontal">
+                      <input type="hidden" th:field="*{page}"/>
+                      <input type="hidden" th:field="*{pageSize}"/>
+                      <div class="row">
+                          <div class="form-group col-md-12">
+                              <label class="col-md-2 control-lable" for="value">Phrase to search in titles</label>
+                              <div class="col-md-7">
+                                  <div class="input-group">
+                                    <input type="text" th:field="*{value}" id="value" class="req form-control input-sm" placeholder="thymeleaf"/>
+                                      <span class="input-group-btn">
+                                        <input type="submit" name="action" value="search" class="btn btn-primary btn-sm"/>
+                                        <input type="submit" name="action" value="prevPage" class="btn btn-primary btn-sm" th:if="${page!=null and page>1}"/>
+                                        <input type="submit" name="action" value="nextPage" class="btn btn-primary btn-sm" th:if="${page!=null and hasMore==true}"/>
+                                      </span>
+                                  </div>
+                                  <div class="has-error" th:if="${#fields.hasErrors('value')}">
+                                      <span th:errors="*{value}"></span>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </form>
+              </div>
+          </div>
+          <div class="panel panel-default" th:if="${errorMessage}">
+              <div class="panel-heading"><span class="lead" th:text="'ERRROR: ' + ${errorMessage}">error</span></div>
+          </div>
+          <div class="panel panel-default" th:if="${errorMessage==null and total!=null}">
+              <div class="panel-heading"><span class="lead" th:text="${'Search results: ' + total + ' (page=' + page + ', pageSize=' + pageSize + ')'}">Search results: ...</span></div>
+              <div class="tablecontainer">
+                  <table class="table table-hover">
+                      <thead>
+                          <tr>
+                              <th>Created</th>
+                              <th>Author</th>
+                              <th>Question</th>
+                              <th>ID</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr th:each="item: ${items}">
+                              <td><span th:text="${#calendars.format(item.creationDate, 'dd.MM.yyyy')}" th:style="${'font-weight:' + (item.answered ? 'bold' : 'normal') + ';'}">date</span></td>
+                              <td><span th:text="${item.author.name}">author</span></td>
+                              <td><span th:text="${item.title}">title</span></td>
+                              <td><a th:href="${item.link}" target="_blank" th:text="${item.id}">id</a></td>
+                          </tr>
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+      </div>
+  </body>
+</html>

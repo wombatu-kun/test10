@@ -19,12 +19,12 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @RestController
-public class SearcherController {
+public class SearcherRestController {
 
 	private SearcherService searcherService;
 
 	@Autowired
-	public SearcherController(SearcherService searcherService) {
+	public SearcherRestController(SearcherService searcherService) {
 		this.searcherService = searcherService;
 	}
 

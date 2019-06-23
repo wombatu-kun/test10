@@ -52,6 +52,7 @@ public class StackExchangeApiImpl implements StackExchangeApi {
 		failure.setItems(new ArrayList<>());
 		failure.setPage(request.getPage());
 		failure.setPageSize(request.getPageSize());
+		failure.setTotal(0L);
 		failure.setErrorId(DEFAULT_ERROR_ID);
 		failure.setErrorName(throwable.getClass().getName());
 		failure.setErrorMessage(Strings.nullToEmpty(throwable.getMessage()));

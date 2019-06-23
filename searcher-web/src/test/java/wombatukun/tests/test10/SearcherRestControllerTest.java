@@ -9,7 +9,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import wombatukun.tests.test10.controllers.SearcherController;
+import wombatukun.tests.test10.controllers.SearcherRestController;
 import wombatukun.tests.test10.dto.AuthorDto;
 import wombatukun.tests.test10.dto.QuestionDto;
 import wombatukun.tests.test10.dto.ResponseDto;
@@ -27,8 +27,8 @@ import static wombatukun.tests.test10.Const.*;
 
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(SearcherController.class)
-public class SearcherControllerTest {
+@WebMvcTest(SearcherRestController.class)
+public class SearcherRestControllerTest {
 
 	@Autowired
 	private MockMvc mvc;

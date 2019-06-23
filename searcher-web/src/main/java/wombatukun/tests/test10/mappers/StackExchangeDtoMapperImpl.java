@@ -45,10 +45,10 @@ public class StackExchangeDtoMapperImpl implements StackExchangeDtoMapper {
 		response.setHasMore(apiResponse.isHasMore());
 		response.setPage(apiResponse.getPage());
 		response.setPageSize(apiResponse.getPageSize());
+		response.setTotal(apiResponse.getTotal());
 		if (apiResponse.getErrorId() != null) {
 			response.setErrorMessage(apiResponse.errorDescription());
 		} else {
-			response.setTotal(apiResponse.getTotal());
 			List<QuestionDto> items = new ArrayList<>();
 			if (apiResponse.getItems() != null) {
 				apiResponse.getItems().forEach(item -> items.add(mapItem(item)));
