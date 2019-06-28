@@ -12,6 +12,7 @@ buildscript {
 plugins {
 	id 'org.springframework.boot' version '2.1.5.RELEASE'
 	id 'java'
+	id 'jacoco'
 }
 
 apply plugin: 'org.springframework.boot'
@@ -63,4 +64,12 @@ docker {
 test {
 	forkEvery = 4
 	maxParallelForks = Runtime.runtime.availableProcessors()/2
+}
+
+jacocoTestReport {
+	reports {
+		xml.enabled false
+		csv.enabled false
+		html.destination file("${buildDir}/jacocoHtml")
+	}
 }
